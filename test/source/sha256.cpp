@@ -9,7 +9,8 @@ inline std::string string_to_hex(std::string_view input) {
 
   std::string output;
   output.reserve(input.length() * 2);
-  for (unsigned char c : input) {
+  for (auto v : input) {
+    auto c = (unsigned char)(v);
     output.push_back(hex_digits[c >> 4]);
     output.push_back(hex_digits[c & 15]);
   }
@@ -24,7 +25,7 @@ inline std::string hash_to_string(const static_hash::SHA256 &hash) {
 
 template <size_t N> inline constexpr auto toArray(std::string_view input) {
   std::array<unsigned char, N> inputVector;
-  for (size_t i = 0; i < N; ++i) inputVector[i] = input[i];
+  for (size_t i = 0; i < N; ++i) inputVector[i] = (unsigned char)(input[i]);
   return input;
 }
 

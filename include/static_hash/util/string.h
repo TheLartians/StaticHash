@@ -74,5 +74,5 @@ namespace static_hash {
     return ((x & 0xff) << 24) | (((x >> 8) & 0xff) << 16) | (((x >> 16) & 0xff) << 8)
            | ((x >> 24) & 0xff);
   }
-  constexpr uint16_t endianswap(uint16_t x) { return ((x & 0xff) << 8) | ((x >> 8) & 0xff); }
+  constexpr uint16_t endianswap(uint16_t x) { return uint16_t((x & 0xff) << 8) | uint16_t((x >> 8) & 0xff); }
 }  // namespace static_hash

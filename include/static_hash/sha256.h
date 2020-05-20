@@ -96,8 +96,8 @@ namespace static_hash {
                         : len == 2 ? 0x00008000 : len == 1 ? 0x00800000 : len == 0 ? 0x80000000 : 0;
       }
       constexpr uint32_t origlenbytes(int origlen, int origlenpos) {
-        return origlenpos == -4 ? static_cast<uint64_t>(origlen) * 8 & 0xffffffff
-                                : origlenpos == 0 ? (static_cast<uint64_t>(origlen) >> 29) : 0;
+        return origlenpos == -4 ? uint32_t(static_cast<uint64_t>(origlen) * 8 & 0xffffffff)
+                                : origlenpos == 0 ? uint32_t(static_cast<uint64_t>(origlen) >> 29) : uint32_t(0);
       }
       template <class T> constexpr schedule leftover(T buf, int len, int origlen, int origlenpos) {
         return {{word32be(buf, len) | pad(len) | origlenbytes(origlen, origlenpos),
@@ -346,7 +346,7 @@ namespace static_hash {
       //    fit the 8 bytes of length after padding
       // 3. otherwise we have a block that will fit both padding and the length
       template <class T>
-      constexpr SHA256 sha256update(const SHA256& sum, T msg, size_t len, size_t origlen) {
+      constexpr SHA256 sha256update(const SHA256& sum, T msg, int len, int origlen) {
         return len >= 64
                    ? sha256update(sha256transform(sum, init(msg)), msg + 64, len - 64, origlen)
                    : len >= 56 ? sha256update(sha256transform(sum, leftover(msg, len, origlen, 64)),
@@ -354,7 +354,7 @@ namespace static_hash {
                                : sha256transform(sum, leftover(msg, len, origlen, 56));
       }
 
-      template <class T> constexpr SHA256 sha256withlen(T msg, size_t len) {
+      template <class T> constexpr SHA256 sha256withlen(T msg, int len) {
         return sha256update(init(), msg, len, len);
       }
 
@@ -363,7 +363,7 @@ namespace static_hash {
           return sha256withlen(msg, strlen(msg));
         } else {
           static_assert(sizeof(typename T::value_type) == sizeof(char));
-          return sha256withlen(msg.data(), msg.size());
+          return sha256withlen(msg.data(), int(msg.size()));
         }
       }
 
