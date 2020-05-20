@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.14 FATAL_ERROR)
 # ---- Project ----
 
 # Note: update this to your new project's name and version
-project(Greeter 
+project(StaticHash 
   VERSION 1.0
   LANGUAGES CXX
 )
@@ -28,28 +28,18 @@ CPMAddPackage(
 
 # ---- Add source files ----
 
-# Note: globbing sources is considered bad practice as CMake's generators may not detect new files automatically.
-# Keep that in mind when changing files, or explicitly mention them here.
 FILE(GLOB_RECURSE headers CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/include/*.h")
 FILE(GLOB_RECURSE sources CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/source/*.cpp")
 
 # ---- Create library ----
 
-# Note: for header-only libraries change all PUBLIC flags to INTERFACE and create an interface target:
-# add_library(Greeter INTERFACE)  
-# set_target_properties(Greeter PROPERTIES INTERFACE_COMPILE_FEATURES cxx_std_17)
-
-add_library(Greeter ${headers} ${sources})
-
-set_target_properties(Greeter PROPERTIES CXX_STANDARD 17)
+add_library(StaticHash ${headers} ${sources})
+set_target_properties(StaticHash PROPERTIES CXX_STANDARD 17)
 
 # beeing a cross-platform target, we enforce standards conformance on MSVC
-target_compile_options(Greeter PUBLIC "$<$<BOOL:${MSVC}>:/permissive->")
+target_compile_options(StaticHash PUBLIC "$<$<BOOL:${MSVC}>:/permissive->")
 
-# Link dependencies (if required)
-# target_link_libraries(Greeter PUBLIC cxxopts)
-
-target_include_directories(Greeter
+target_include_directories(StaticHash
   PUBLIC
     $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
     $<INSTALL_INTERFACE:include/${PROJECT_NAME}-${PROJECT_VERSION}>

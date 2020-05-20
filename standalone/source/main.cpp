@@ -1,15 +1,15 @@
-#include <greeter.h>
+#include <static_hash.h>
 
 #include <cxxopts.hpp>
 #include <iostream>
 #include <string>
 #include <unordered_map>
 
-const std::unordered_map<std::string, greeter::LanguageCode> languages{
-    {"en", greeter::LanguageCode::EN},
-    {"de", greeter::LanguageCode::DE},
-    {"es", greeter::LanguageCode::ES},
-    {"fr", greeter::LanguageCode::FR},
+const std::unordered_map<std::string, static_hash::LanguageCode> languages{
+    {"en", static_hash::LanguageCode::EN},
+    {"de", static_hash::LanguageCode::DE},
+    {"es", static_hash::LanguageCode::ES},
+    {"fr", static_hash::LanguageCode::FR},
 };
 
 int main(int argc, char** argv) {
@@ -39,8 +39,8 @@ int main(int argc, char** argv) {
     return 1;
   }
 
-  greeter::Greeter greeter(name);
-  std::cout << greeter.greet(langIt->second) << std::endl;
+  static_hash::StaticHash static_hash(name);
+  std::cout << static_hash.greet(langIt->second) << std::endl;
 
   return 0;
 }

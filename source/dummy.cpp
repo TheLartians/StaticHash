@@ -1,0 +1,1 @@
+// dummy cpp file to allow creating a standard cmake library
