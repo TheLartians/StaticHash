@@ -1,5 +1,5 @@
 #include <doctest/doctest.h>
-#include <static_hash/utils/array_conversion.h>
+#include <static_hash/util/array_conversion.h>
 
 template <class T1, class T2> auto checkArrayConversion() {
   constexpr auto a = std::array<T1, 8>(

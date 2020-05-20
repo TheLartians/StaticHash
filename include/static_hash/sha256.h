@@ -24,7 +24,7 @@
 
 // Modified by Lars Melchior
 
-#include <static_hash/utils/string.h>
+#include <static_hash/util/string.h>
 
 #include <array>
 
