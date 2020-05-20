@@ -96,8 +96,9 @@ namespace static_hash {
                         : len == 2 ? 0x00008000 : len == 1 ? 0x00800000 : len == 0 ? 0x80000000 : 0;
       }
       constexpr uint32_t origlenbytes(int origlen, int origlenpos) {
-        return origlenpos == -4 ? uint32_t(static_cast<uint64_t>(origlen) * 8 & 0xffffffff)
-                                : origlenpos == 0 ? uint32_t(static_cast<uint64_t>(origlen) >> 29) : uint32_t(0);
+        return origlenpos == -4
+                   ? uint32_t(static_cast<uint64_t>(origlen) * 8 & 0xffffffff)
+                   : origlenpos == 0 ? uint32_t(static_cast<uint64_t>(origlen) >> 29) : uint32_t(0);
       }
       template <class T> constexpr schedule leftover(T buf, int len, int origlen, int origlenpos) {
         return {{word32be(buf, len) | pad(len) | origlenbytes(origlen, origlenpos),
