@@ -75,4 +75,4 @@ namespace static_hash {
            | ((x >> 24) & 0xff);
   }
   constexpr uint16_t endianswap(uint16_t x) { return ((x & 0xff) << 8) | ((x >> 8) & 0xff); }
-}  // namespace cx
+}  // namespace static_hash
